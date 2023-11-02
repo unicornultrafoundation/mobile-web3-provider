@@ -1,0 +1,38 @@
+{
+  "name": "u2u-web3-mobile-provider",
+  "version": "0.3.0",
+  "description": "U2U Web3 Mobile Provider",
+  "main": "index.js",
+  "android": {
+    "dist": "../android/lib/src/main/res/raw/"
+  },
+  "scripts": {
+    "build": "rm -rf ./dist && parcel build index.js --no-source-maps -o u2u-web3-mobile-provider-min.jsstring -d ./dist",
+    "watch": "rm -rf ./dist && parcel watch index.js --no-source-maps -o u2u-web3-mobile-provider-min.jsstring -d ./dist",
+    "lint": "eslint . --fix",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unicornultrafoundation/mobile-web3-provider.git"
+  },
+  "keywords": [],
+  "author": "nhatnp@uniultra.xyz",
+  "license": "MIT",
+  "dependencies": {
+    "buffer": "^5.6.0",
+    "eth-sig-util": "^3.0.1",
+    "events": "^3.2.0",
+    "isutf8": "^3.1.1",
+    "web3": "^0.20.7"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^5.16.0",
+    "ethereumjs-util": "^7.0.5",
+    "jest": "^23.6.0",
+    "lodash": "^4.17.21",
+    "parcel-bundler": "^1.12.4"
+  }
+}
