@@ -21,7 +21,7 @@ class U2UWeb3Provider extends EventEmitter {
     this.isU2UWallet = true;
     this.isDebug = !!config.isDebug;
 
-    this.emitConnect(config.chainId);
+    this.emitConnect(Number(config.chainId));
   }
 
   setAddress(address) {
@@ -40,7 +40,7 @@ class U2UWeb3Provider extends EventEmitter {
   setConfig(config) {
     this.setAddress(config.address);
 
-    this.chainId = config.chainId;
+    this.chainId = Number(config.chainId);
     this.rpc = new RPCServer(config.rpcUrl);
     this.isDebug = !!config.isDebug;
   }
@@ -216,14 +216,15 @@ class U2UWeb3Provider extends EventEmitter {
 
   personal_sign(payload) {
     const message = payload.params[0];
-    const buffer = Utils.messageToBuffer(message);
-    if (buffer.length === 0) {
-      // hex it
-      const hex = Utils.bufferToHex(message);
-      this.postMessage("signPersonalMessage", payload.id, { data: hex });
-    } else {
-      this.postMessage("signPersonalMessage", payload.id, { data: message });
-    }
+    this.postMessage("signPersonalMessage", payload.id, { data: message });
+    // const buffer = Utils.messageToBuffer(message);
+    // if (buffer.length === 0) {
+    //   // hex it
+    //   const hex = Utils.bufferToHex(message);
+    //   this.postMessage("signPersonalMessage", payload.id, { data: hex });
+    // } else {
+    //   this.postMessage("signPersonalMessage", payload.id, { data: message });
+    // }
   }
 
   personal_ecRecover(payload) {
@@ -349,29 +350,29 @@ class U2UWeb3Provider extends EventEmitter {
 
 window.ethereum = new U2UWeb3Provider({
   address: '{{WALLET_ADDRESS}}',
-  chainId: 2484,
+  chainId: '{{CHAIN_ID}}',
   rpcUrl: '{{RPC_URL}}',
   isDebug: false
 });
 
 window.u2u = new U2UWeb3Provider({
   address: '{{WALLET_ADDRESS}}',
-  chainId: 2484,
+  chainId: '{{CHAIN_ID}}',
   rpcUrl: '{{RPC_URL}}',
   isDebug: false
 });
 
 // DEBUG
-// if (window.ReactNativeWebView) {
-//   console = new Object();
-//   console.log = function(log, type = 'log') {
-//     window.ReactNativeWebView.postMessage(JSON.stringify({
-//       type: type,
-//       data: log
-//     }));
-//   };
-//   console.debug = (...args) => console.log(args, 'debug');
-//   console.info = (...args) => console.log(args, 'info');
-//   console.warn = (...args) => console.log(args, 'warn');
-//   console.error = (...args) => console.log(args, 'error');
-// }
+if (window.ReactNativeWebView) {
+  console = new Object();
+  console.log = function(log, type = 'log') {
+    window.ReactNativeWebView.postMessage(JSON.stringify({
+      type: type,
+      data: log
+    }));
+  };
+  console.debug = (...args) => console.log(args, 'debug');
+  console.info = (...args) => console.log(args, 'info');
+  console.warn = (...args) => console.log(args, 'warn');
+  console.error = (...args) => console.log(args, 'error');
+}
