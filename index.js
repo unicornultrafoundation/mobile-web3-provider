@@ -363,16 +363,33 @@ window.u2u = new U2UWeb3Provider({
 });
 
 // DEBUG
-if (window.ReactNativeWebView) {
-  console = new Object();
-  console.log = function(log, type = 'log') {
-    window.ReactNativeWebView.postMessage(JSON.stringify({
-      type: type,
-      data: log
-    }));
-  };
-  console.debug = (...args) => console.log(args, 'debug');
-  console.info = (...args) => console.log(args, 'info');
-  console.warn = (...args) => console.log(args, 'warn');
-  console.error = (...args) => console.log(args, 'error');
-}
+// if (window.ReactNativeWebView) {
+//   const currentConsole = window.console
+//   console = new Object();
+//   const logToRN = function(log, type = 'log') {
+//     window.ReactNativeWebView.postMessage(JSON.stringify({
+//       type: type,
+//       data: log
+//     }));
+//   };
+//   window.console.log = (...args) => {
+//     logToRN(args, 'log')
+//     currentConsole.log(...args);
+//   }
+//   window.console.debug = (...args) => {
+//     logToRN(args, 'debug')
+//     currentConsole.debug(...args)
+//   };
+//   window.console.info = (...args) => {
+//     logToRN(args, 'info')
+//     currentConsole.info(...args)
+//   };
+//   window.console.warn = (...args) => {
+//     logToRN(args, 'warn')
+//     currentConsole.warn(...args)
+//   };
+//   window.console.error = (...args) => {
+//     logToRN(args, 'error')
+//     currentConsole.error(...args)
+//   };
+// }
